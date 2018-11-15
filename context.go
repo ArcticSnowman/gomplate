@@ -20,6 +20,19 @@ func (c *context) Env() map[string]string {
 	return env
 }
 
+// Set - set a named context entry
+func (c *context) Set(k string, v interface{}) (interface{}, error) {
+	(*c)[k] = v
+	return nil, nil
+}
+
+// Unset - unset the named context entry
+func (c *context) Unset(k string) (interface{}, error) {
+	old := (*c)[k]
+	delete(*c, k)
+	return old, nil
+}
+
 func createContext(contexts []string, d *data.Data) (interface{}, error) {
 	var err error
 	ctx := &context{}
